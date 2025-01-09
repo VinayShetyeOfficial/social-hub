@@ -1,0 +1,141 @@
+import { personImages, postImages } from "../assets/assetExports";
+
+export const Users = [
+  {
+    id: 1,
+    profilePicture: personImages.person1,
+    username: "Veronica Floresn",
+  },
+  {
+    id: 2,
+    profilePicture: personImages.person2,
+    username: "Scott Torres",
+  },
+  {
+    id: 3,
+    profilePicture: personImages.person3,
+    username: "Melissa Prater",
+  },
+  {
+    id: 4,
+    profilePicture: personImages.person4,
+    username: "Katherine Johnson",
+  },
+  {
+    id: 5,
+    profilePicture: personImages.person5,
+    username: "Jessica Howard",
+  },
+  {
+    id: 6,
+    profilePicture: personImages.person6,
+    username: "Shirley Beauchamp",
+  },
+  {
+    id: 7,
+    profilePicture: personImages.person7,
+    username: "Travis Bennett",
+  },
+  {
+    id: 8,
+    profilePicture: personImages.person8,
+    username: "Kristen Thomas",
+  },
+  {
+    id: 9,
+    profilePicture: personImages.person9,
+    username: "Sandra Melton",
+  },
+  {
+    id: 10,
+    profilePicture: personImages.person10,
+    username: "Tina Nielsonz",
+  },
+];
+
+export const Posts = [
+  {
+    id: 1,
+    desc: "Love For All, Hatred For None.",
+    photo: postImages.post1,
+    date: "5 mins ago",
+    userId: 1,
+    like: 32,
+    comment: 9,
+  },
+  {
+    id: 2,
+    photo: postImages.post2,
+    date: "15 mins ago",
+    userId: 2,
+    like: 2,
+    comment: 1,
+  },
+  {
+    id: 3,
+    desc: "Every moment is a fresh beginning.",
+    photo: postImages.post3,
+    date: "1 hour ago",
+    userId: 3,
+    like: 61,
+    comment: 2,
+  },
+  {
+    id: 4,
+    photo: postImages.post4,
+    date: "4 hours ago",
+    userId: 4,
+    like: 7,
+    comment: 3,
+  },
+  {
+    id: 5,
+    photo: postImages.post5,
+    date: "5 hours ago",
+    userId: 5,
+    like: 23,
+    comment: 5,
+  },
+  {
+    id: 6,
+    photo: postImages.post6,
+    date: "1 day ago",
+    userId: 6,
+    like: 44,
+    comment: 6,
+  },
+  {
+    id: 7,
+    desc: "Never regret anything that made you smile.",
+    photo: postImages.post7,
+    date: "2 days ago",
+    userId: 7,
+    like: 52,
+    comment: 3,
+  },
+  {
+    id: 8,
+    photo: postImages.post8,
+    date: "3 days ago",
+    userId: 8,
+    like: 15,
+    comment: 1,
+  },
+  {
+    id: 9,
+    desc: "Change the world by being yourself.",
+    photo: postImages.post9,
+    date: "5 days ago",
+    userId: 9,
+    like: 11,
+    comment: 2,
+  },
+  {
+    id: 10,
+    photo: postImages.post10,
+    date: "1 week ago",
+    userId: 10,
+    like: 104,
+    comment: 12,
+  },
+];
