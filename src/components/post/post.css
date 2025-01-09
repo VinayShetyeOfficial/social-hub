@@ -1,0 +1,153 @@
+.post {
+  width: 100%;
+  margin-bottom: 20px;
+  border-radius: 10px;
+  background-color: #ffffff;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: box-shadow 0.3s ease;
+}
+
+.post:hover {
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+.postWrapper {
+  padding: 20px;
+}
+
+.postTop {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+}
+
+.postTopLeft {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.postProfileImg {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  object-fit: cover;
+  transition: transform 0.2s ease;
+}
+
+.postProfileImg:hover {
+  transform: scale(1.1);
+}
+
+.postUsername {
+  font-size: 16px;
+  font-weight: 600;
+  color: #333;
+}
+
+.postDate {
+  font-size: 13px;
+  color: #888;
+}
+
+.postTopRight {
+  color: #555;
+  cursor: pointer;
+  font-size: 20px;
+  transition: transform 0.2s ease, color 0.3s ease;
+}
+
+.postTopRight:hover {
+  transform: scale(1.2);
+  color: #1877f2;
+}
+
+.postCenter {
+  margin-bottom: 12px;
+}
+
+.postText {
+  font-size: 16px;
+  font-weight: 500;
+  color: #444;
+  margin-bottom: 15px;
+  line-height: 1.5;
+}
+
+.postImg {
+  width: 100%;
+  border-radius: 10px;
+  object-fit: cover;
+  margin-top: 12px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.postImg:hover {
+  transform: scale(1.02);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+}
+
+.postBottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 16px;
+  border-top: 1px solid #eee;
+  padding-top: 12px;
+}
+
+.postBottomLeft {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
+
+.likeIcon {
+  width: 24px;
+  height: 24px;
+  cursor: pointer;
+  transition: transform 0.2s ease, filter 0.2s ease;
+}
+
+.likeIcon:hover {
+  transform: scale(1.2);
+}
+
+.postLikeCounter {
+  font-size: 14px;
+  color: #555;
+  font-weight: 500;
+  transition: color 0.3s ease;
+}
+
+.postBottomLeft:hover > .postLikeCounter {
+  color: #1877f2;
+}
+
+.postBottomRight {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 14px;
+  color: #777;
+  cursor: pointer;
+  transition: color 0.3s ease, transform 0.2s ease;
+}
+
+.postBottomRight:hover {
+  color: #1877f2;
+  transform: scale(1.05);
+}
+
+.commentIcon {
+  font-size: 22px;
+}
+
+.postCommentText {
+  font-size: 14px;
+  font-weight: 500;
+  color: inherit;
+}
