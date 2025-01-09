@@ -1,0 +1,41 @@
+.rightbarFriend {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+  padding: 10px;
+  border-radius: 8px;
+  transition: background-color 0.2s ease;
+}
+
+.rightbarFriend:hover {
+  background-color: #e2e2e2;
+}
+
+.rightbarProfileImgContainer {
+  position: relative;
+}
+
+.rightbarProfileImg {
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.rightbarOnline {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background-color: #0f960f;
+  position: absolute;
+  top: 0;
+  right: 0;
+  border: 2px solid white;
+}
+
+.rightbarUsername {
+  font-size: 14px;
+  font-weight: 500;
+  color: #333;
+}
