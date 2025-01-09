@@ -1,0 +1,10 @@
+.feed {
+  flex: 5;
+  padding: 0 20px;
+  background-color: #f5f6fa;
+}
+
+.feedWrapper {
+  padding: 20px;
+  border-radius: 10px;
+}
