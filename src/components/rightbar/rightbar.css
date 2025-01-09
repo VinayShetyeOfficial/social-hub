@@ -1,0 +1,60 @@
+.rightbar {
+  flex: none; /* Prevent flex from resizing dynamically */
+  width: 20%; /* Default proportional width */
+  max-width: 600px; /* Maximum width */
+  min-width: 400px; /* Minimum width */
+  background-color: #f5f6fa;
+  padding: 20px;
+  border-left: 1px solid #e0e0e0; /* Separator for better layout */
+}
+
+.rightbarWrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.birthdayContainer {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px;
+  background-color: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.birthdayImg {
+  width: 40px;
+  height: 40px;
+  object-fit: cover;
+}
+
+.birthdayText {
+  font-weight: 500;
+  font-size: 14px;
+  color: #555;
+}
+
+.rightbarAd {
+  width: 100%;
+  border-radius: 12px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+}
+
+.rightbarTitle {
+  font-size: 16px;
+  font-weight: 600;
+  color: #333;
+  /* margin-bottom: 10px; */
+}
+
+.rightbarFriendList {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
