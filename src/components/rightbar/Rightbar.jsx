@@ -25,6 +25,7 @@ const Rightbar = ({ profile }) => {
   };
 
   const ProfileRightbar = () => {
+    return (
       <>
         <h4 className="rightbarTitle">User information</h4>
         <div className="rightbarInfo">
