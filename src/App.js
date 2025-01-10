@@ -1,24 +1,20 @@
 import React from "react";
-// import Home from "./pages/home/Home";
-import Topbar from "./components/topbar/Topbar";
-import Sidebar from "./components/sidebar/Sidebar";
-import Feed from "./components/feed/Feed";
-import Rightbar from "./components/rightbar/Rightbar";
-import Profile from "./components/profile/Profile";
+import Home from "./pages/home/Home";
+import Profile from "./pages/profile/Profile";
+import Login from "./pages/login/Login";
+import Register from "./pages/register/Register";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 const App = () => {
   return (
-    // <div>
-    //   <Home />
-    // </div>
-    <>
-      <Topbar />
-      <div className="profile">
-        <Sidebar />
-        <Feed />
-        <Rightbar />
-      </div>
-    </>
+    <Router>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
+        <Route path="/profile/:username" element={<Profile />} />
+      </Routes>
+    </Router>
   );
 };
 
