@@ -10,6 +10,8 @@ export const personImages = {
   person8: require("./person/8.jpeg"),
   person9: require("./person/9.jpeg"),
   person10: require("./person/10.jpeg"),
+  noAvatar: require("./person/noAvatar.png"),
+  noCover: require("./person/noCover.png"),
 };
 
 // Importing post images
