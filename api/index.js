@@ -6,6 +6,8 @@ const dotenv = require("dotenv");
 const helmet = require("helmet");
 const morgan = require("morgan");
 const multer = require("multer");
+const cors = require("cors");
+
 const userRoute = require("./routes/users");
 const authRoute = require("./routes/auth");
 const postRoute = require("./routes/posts");
@@ -16,15 +18,17 @@ dotenv.config();
 
 // Connect to MongoDB using credentials from the environment file
 mongoose
-  .connect(process.env.MONGO_URL, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-  })
+  .connect(process.env.MONGO_URL)
   .then(() => console.log("Connected to MongoDB"))
   .catch((err) => console.error("Failed to connect to MongoDB:", err));
 
 // Serve static files from the "public/images" directory
 app.use("/images", express.static(path.join(__dirname, "public/images")));
+
+// Enable Cross-Origin Resource Sharing (CORS) to allow requests from different origins
+// This is particularly useful when the frontend (running on localhost:3000) interacts with the backend API (running on localhost:8800)
+// It ensures the server accepts requests from the specified origin(s)
+app.use(cors());
 
 // Middleware to parse JSON payloads
 app.use(express.json());
