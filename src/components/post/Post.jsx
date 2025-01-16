@@ -1,20 +1,36 @@
-import { miscAssets } from "../../assets/assetExports.js";
+import { useState, useEffect } from "react";
+import {
+  personImages,
+  postImages,
+  miscAssets,
+} from "../../assets/assetExports.js";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import CommentIcon from "@mui/icons-material/Comment";
-import { Users } from "../../data/mockData.js";
-import { useState } from "react";
+import { format } from "timeago.js";
+import { Link } from "react-router-dom";
+import axios from "axios";
 import "./post.css";
 
 const Post = ({ post }) => {
-  const [like, setLike] = useState(post.like);
+  const [like, setLike] = useState(post.likes.length);
   const [isLiked, setIsLiked] = useState(false);
+  const [user, setUser] = useState({});
+
+  useEffect(() => {
+    const fetchUser = async () => {
+      try {
+        const res = await axios.get(`/users?userId=${post.userId}`);
+        setUser(res.data);
+      } catch (error) {
+        console.error("Error fetching user:", error);
+      }
+    };
+
+    fetchUser();
+  }, [post.userId]);
 
   const likeHandler = () => {
-    if (isLiked) {
-      setLike((prev) => prev - 1);
-    } else {
-      setLike((prev) => prev + 1);
-    }
+    setLike((prev) => (isLiked ? prev - 1 : prev + 1));
     setIsLiked(!isLiked);
   };
 
@@ -24,19 +40,16 @@ const Post = ({ post }) => {
         {/* Post Header */}
         <div className="postTop">
           <div className="postTopLeft">
-            <img
-              src={
-                Users.find((user) => user.id === post?.userId)
-                  ?.profilePicture || "https://via.placeholder.com/45"
-              }
-              alt="Profile"
-              className="postProfileImg"
-            />
+            <Link to={`profile/${user.username}`}>
+              <img
+                src={user.profilePicture || personImages.noAvatar}
+                alt="Profile"
+                className="postProfileImg"
+              />
+            </Link>
             <div>
-              <span className="postUsername">
-                {Users.find((user) => user.id === post.id)?.username || "User"}
-              </span>
-              <span className="postDate">{post.date}</span>
+              <span className="postUsername">{user.username}</span>
+              <span className="postDate">{format(post.createdAt)}</span>
             </div>
           </div>
           <div className="postTopRight">
@@ -47,8 +60,12 @@ const Post = ({ post }) => {
         {/* Post Content */}
         <div className="postCenter">
           {post.desc && <span className="postText">{post.desc}</span>}
-          {post.photo && (
-            <img src={post.photo} alt="Post Content" className="postImg" />
+          {post.img && postImages[post.img] && (
+            <img
+              src={postImages[post.img]}
+              alt="Post Content"
+              className="postImg"
+            />
           )}
         </div>
 
@@ -74,7 +91,9 @@ const Post = ({ post }) => {
           <div className="postBottomRight">
             <CommentIcon className="commentIcon" />
             <span className="postCommentText">
-              {`${post.comment} ${post.comment === 1 ? "comment" : "comments"}`}
+              {`${post.comment || 0} ${
+                post.comment === 1 ? "comment" : "comments"
+              }`}
             </span>
           </div>
         </div>
