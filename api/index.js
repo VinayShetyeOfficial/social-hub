@@ -26,8 +26,6 @@ mongoose
 app.use("/images", express.static(path.join(__dirname, "public/images")));
 
 // Enable Cross-Origin Resource Sharing (CORS) to allow requests from different origins
-// This is particularly useful when the frontend (running on localhost:3000) interacts with the backend API (running on localhost:8800)
-// It ensures the server accepts requests from the specified origin(s)
 app.use(cors());
 
 // Middleware to parse JSON payloads
@@ -42,22 +40,43 @@ app.use(morgan("common"));
 // Configure file upload handling with Multer
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
-    cb(null, "public/images"); // Set destination for uploaded files
+    const uploadPath = path.join(__dirname, "public/images");
+    cb(null, uploadPath); // Set destination for uploaded files
   },
   filename: (req, file, cb) => {
-    cb(null, req.body.name); // Save files with the provided name in the request body
+    const uniqueName = `${Date.now()}_${file.originalname}`; // Create a unique filename
+    cb(null, uniqueName); // Save the file with the unique name
   },
 });
 
-const upload = multer({ storage: storage });
+const fileFilter = (req, file, cb) => {
+  const allowedMimeTypes = ["image/jpeg", "image/png", "image/jpg"];
+  if (allowedMimeTypes.includes(file.mimetype)) {
+    cb(null, true); // Accept the file
+  } else {
+    cb(
+      new Error("Invalid file type. Only JPEG, PNG, and JPG are allowed."),
+      false
+    ); // Reject the file
+  }
+};
+
+const upload = multer({
+  storage: storage,
+  limits: { fileSize: 5 * 1024 * 1024 }, // 5MB file size limit
+  fileFilter: fileFilter,
+});
 
 // File upload endpoint
 app.post("/api/upload", upload.single("file"), (req, res) => {
   try {
-    return res.status(200).json("File uploaded successfully"); // Respond if upload is successful
+    res.status(200).json({
+      message: "File uploaded successfully",
+      fileName: req.file.filename, // Return the filename for reference
+    });
   } catch (error) {
-    console.error(error); // Log errors to the console
-    res.status(500).json("Failed to upload file"); // Send error response
+    console.error("File upload failed:", error);
+    res.status(500).json({ message: "Failed to upload file" });
   }
 });
 
