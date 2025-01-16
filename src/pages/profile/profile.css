@@ -21,9 +21,9 @@
   transition: transform 0.3s ease-in-out;
 }
 
-.profileCoverImg:hover {
+/* .profileCoverImg:hover {
   transform: scale(1.03);
-}
+} */
 
 .profileUserImg {
   width: 150px;
