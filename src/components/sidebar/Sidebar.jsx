@@ -56,8 +56,8 @@ const Sidebar = () => {
         <button className="sidebarButton">Show More</button>
         <hr className="sidebarHr" />
         <ul className="sidebarFriendList">
-          {Users.map((user) => (
-            <CloseFriend user={user} />
+          {Users.map((user, index) => (
+            <CloseFriend key={index} user={user} />
           ))}
         </ul>
       </div>
