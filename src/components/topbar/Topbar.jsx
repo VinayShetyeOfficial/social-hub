@@ -3,10 +3,19 @@ import SearchIcon from "@mui/icons-material/Search";
 import PersonIcon from "@mui/icons-material/Person";
 import ChatIcon from "@mui/icons-material/Chat";
 import NotificationsIcon from "@mui/icons-material/Notifications";
-import { Link } from "react-router-dom";
 import { personImages } from "../../assets/assetExports";
+import { Link } from "react-router-dom";
+import { useContext } from "react";
+import { AuthContext } from "../../context/AuthContext";
 
 const Topbar = () => {
+  const { user } = useContext(AuthContext);
+
+  // Safely handle profile picture
+  const profilePicture = user?.profilePicture
+    ? personImages[user.profilePicture] || personImages.noAvatar
+    : personImages.noAvatar;
+
   return (
     <div className="topbarContainer">
       <div className="topbarLeft">
@@ -43,7 +52,13 @@ const Topbar = () => {
             <span className="topbarIconBadge">1</span>
           </div>
         </div>
-        <img src={personImages.person1} alt="Profile" className="topbarImg" />
+        <Link to={`/profile/${user.username}`}>
+          <img
+            src={profilePicture}
+            alt={`${user?.username || "User"}'s Profile`}
+            className="topbarImg"
+          />
+        </Link>
       </div>
     </div>
   );
