@@ -1,6 +1,24 @@
+import React, { useContext, useRef } from "react";
+import { useNavigate } from "react-router-dom";
+import { loginCall } from "../apiCalls";
+import CircularProgress from "@mui/material/CircularProgress";
+import { AuthContext } from "../../context/AuthContext";
 import "./login.css";
 
 const Login = () => {
+  const emailRef = useRef();
+  const passwordRef = useRef();
+  const { isFetching, dispatch } = useContext(AuthContext);
+  const navigate = useNavigate(); // Use navigate for consistent navigation
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    loginCall(
+      { email: emailRef.current.value, password: passwordRef.current.value },
+      dispatch
+    );
+  };
+
   return (
     <div className="login">
       <div className="loginWrapper">
@@ -11,15 +29,49 @@ const Login = () => {
           </span>
         </div>
         <div className="loginRight">
-          <div className="loginBox">
-            <input placeholder="Email" className="loginInput" />
-            <input placeholder="Password" className="loginInput" />
-            <button className="loginButton">Log In</button>
-            <span className="loginForgot">Forgot Password?</span>
-            <button className="loginRegisterButton">
-              Create a New Account
+          <form className="loginBox" onSubmit={handleSubmit}>
+            <input
+              type="email"
+              placeholder="Email"
+              className="loginInput"
+              ref={emailRef}
+              required
+            />
+            <input
+              type="password"
+              placeholder="Password"
+              className="loginInput"
+              ref={passwordRef}
+              minLength="6"
+              required
+            />
+            <button
+              className={`loginButton ${isFetching ? "disabledButton" : ""}`}
+              type="submit"
+              disabled={isFetching}
+            >
+              {isFetching ? (
+                <CircularProgress color="inherit" size="25px" />
+              ) : (
+                "Log In"
+              )}
             </button>
-          </div>
+            <span className="loginForgot">Forgot Password?</span>
+            <button
+              className={`loginRegisterButton ${
+                isFetching ? "disabledButton" : ""
+              }`}
+              type="button"
+              onClick={() => navigate("/register")} // Navigate using useNavigate
+              disabled={isFetching}
+            >
+              {isFetching ? (
+                <CircularProgress color="inherit" size="25px" />
+              ) : (
+                "Create a New Account"
+              )}
+            </button>
+          </form>
         </div>
       </div>
     </div>
