@@ -88,6 +88,10 @@
   margin-bottom: 15px;
 }
 
+.loginButton:disabled {
+  cursor: not-allowed;
+}
+
 .loginButton:hover {
   background-color: #165dc1;
   transform: translateY(-1px);
