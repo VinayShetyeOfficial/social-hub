@@ -7,11 +7,11 @@ const helmet = require("helmet");
 const morgan = require("morgan");
 const multer = require("multer");
 const cors = require("cors");
+const path = require("path");
 
 const userRoute = require("./routes/users");
 const authRoute = require("./routes/auth");
 const postRoute = require("./routes/posts");
-const path = require("path");
 
 // Load environment variables from the .env file
 dotenv.config();
@@ -61,9 +61,16 @@ const fileFilter = (req, file, cb) => {
   }
 };
 
+// No File Size Limit
+// const upload = multer({
+//   storage: storage,
+//   fileFilter: fileFilter,
+// });
+
+// 10MB file size limit
 const upload = multer({
   storage: storage,
-  limits: { fileSize: 5 * 1024 * 1024 }, // 5MB file size limit
+  limits: { fileSize: 1 * 1024 * 1024 },
   fileFilter: fileFilter,
 });
 
