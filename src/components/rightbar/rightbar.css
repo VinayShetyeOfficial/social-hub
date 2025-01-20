@@ -109,9 +109,9 @@
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-.rightbarFollowing:hover {
+/* .rightbarFollowing:hover {
   transform: scale(1.03);
-}
+} */
 
 .rightbarFollowingImg {
   width: 100%;
@@ -133,4 +133,34 @@
   font-weight: 500;
   color: #555;
   text-align: center;
+}
+
+.rightbarFollowButton {
+  /* margin-top: 30px; */
+  width: fit-content;
+  margin-bottom: 10px;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 20px;
+  font-size: 16px;
+  font-weight: 500;
+  color: white;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+  background-color: #1872f2;
+}
+
+.rightbarFollowButton.follow:hover {
+  background-color: #0056d2;
+}
+
+.rightbarFollowButton.unfollow {
+  background-color: #ff4b5c;
+}
+
+.rightbarFollowButton.unfollow:hover {
+  background-color: #e63946;
 }
