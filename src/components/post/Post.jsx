@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import {
   personImages,
   postImages,
@@ -10,11 +10,13 @@ import { format } from "timeago.js";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import "./post.css";
+import { AuthContext } from "../../context/AuthContext.js";
 
 const Post = ({ post }) => {
   const [like, setLike] = useState(post.likes.length);
   const [isLiked, setIsLiked] = useState(false);
   const [user, setUser] = useState({});
+  const { user: currentUser } = useContext(AuthContext);
 
   useEffect(() => {
     const fetchUser = async () => {
@@ -30,6 +32,9 @@ const Post = ({ post }) => {
   }, [post.userId]);
 
   const likeHandler = () => {
+    try {
+      axios.put("/posts/" + post._id + "/like", { userId: currentUser._id });
+    } catch (err) {}
     setLike((prev) => (isLiked ? prev - 1 : prev + 1));
     setIsLiked(!isLiked);
   };
@@ -42,7 +47,11 @@ const Post = ({ post }) => {
           <div className="postTopLeft">
             <Link to={`profile/${user.username}`}>
               <img
-                src={user.profilePicture || personImages.noAvatar}
+                src={
+                  user.profilePicture
+                    ? personImages[user.profilePicture]
+                    : personImages.noAvatar
+                }
                 alt="Profile"
                 className="postProfileImg"
               />
@@ -65,6 +74,18 @@ const Post = ({ post }) => {
               src={postImages[post.img]}
               alt="Post Content"
               className="postImg"
+            />
+          )}
+
+          {post.img && (
+            <img
+              src={`${process.env.REACT_APP_API_PUBLIC_FOLDER}${post.img}`}
+              alt="Post Content"
+              className="postImg"
+              onError={(e) => {
+                // Handle the case when the image doesn't exist
+                e.target.style.display = "none";
+              }}
             />
           )}
         </div>
