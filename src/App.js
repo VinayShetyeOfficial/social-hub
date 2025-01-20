@@ -18,7 +18,7 @@ const App = () => {
     <Router>
       <Routes>
         {/* If user exists, navigate to Home, otherwise go to Register */}
-        <Route path="/" element={user ? <Home /> : <Register />} />
+        <Route path="/" element={user ? <Home /> : <Login />} />
 
         {/* Navigate to Home if user exists, otherwise display Login */}
         <Route path="/login" element={user ? <Navigate to="/" /> : <Login />} />
