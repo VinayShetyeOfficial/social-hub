@@ -1,16 +1,61 @@
 import { miscAssets, personImages } from "../../assets/assetExports.js";
 import { Users } from "../../data/mockData.js";
 import Online from "../online/Online.jsx";
+import { useState, useEffect, useContext } from "react";
+import { AuthContext } from "../../context/AuthContext";
+import { Link } from "react-router-dom";
+import AddIcon from "@mui/icons-material/Add";
+import RemoveIcon from "@mui/icons-material/Remove";
+import axios from "axios";
 import "./rightbar.css";
 
 const Rightbar = ({ user }) => {
+  const [friends, setFriends] = useState([]);
+  const { user: currentUser, dispatch } = useContext(AuthContext);
+  const [followed, setFollowed] = useState(false);
+
+  useEffect(() => {
+    setFollowed(currentUser.followings.includes(user?._id));
+  }, [currentUser, user]);
+
+  useEffect(() => {
+    const getFriends = async () => {
+      try {
+        const friendList = await axios.get(`/users/friends/${user._id}`);
+        setFriends(friendList.data);
+      } catch (err) {
+        console.log(err);
+      }
+    };
+    if (user?._id) getFriends();
+  }, [user]);
+
+  const handleClick = async () => {
+    try {
+      if (followed) {
+        await axios.put(`/users/${user._id}/unfollow`, {
+          userId: currentUser._id,
+        });
+        dispatch({ type: "UNFOLLOW", payload: user._id });
+      } else {
+        await axios.put(`/users/${user._id}/follow`, {
+          userId: currentUser._id,
+        });
+        dispatch({ type: "FOLLOW", payload: user._id });
+      }
+      setFollowed(!followed);
+    } catch (err) {
+      console.error("Error updating follow status:", err);
+    }
+  };
+
   const HomeRightbar = () => {
     return (
       <>
         <div className="birthdayContainer">
           <img className="birthdayImg" src={miscAssets.gift} alt="" />
           <span className="birthdayText">
-            <b>Pola Foster</b> and <b>3 other friends</b> have a birhday today.
+            <b>Pola Foster</b> and <b>3 other friends</b> have a birthday today.
           </span>
         </div>
         <img className="rightbarAd" src="assets/ad.png" alt="" />
@@ -27,6 +72,27 @@ const Rightbar = ({ user }) => {
   const ProfileRightbar = () => {
     return (
       <>
+        {user.username !== currentUser.username && (
+          <button
+            className={`rightbarFollowButton ${
+              followed ? "unfollow" : "follow"
+            }`}
+            onClick={handleClick}
+          >
+            {followed ? (
+              <>
+                <RemoveIcon style={{ marginRight: "5px" }} />
+                Unfollow
+              </>
+            ) : (
+              <>
+                <AddIcon style={{ marginRight: "5px" }} />
+                Follow
+              </>
+            )}
+          </button>
+        )}
+
         <h4 className="rightbarTitle">User information</h4>
         <div className="rightbarInfo">
           <div className="rightbarInfoItem">
@@ -57,58 +123,31 @@ const Rightbar = ({ user }) => {
         </div>
         <h4 className="rightbarTitle">User friends</h4>
         <div className="rightbarFollowings">
-          <div className="rightbarFollowing">
-            <img
-              src={personImages.person1}
-              alt=""
-              className="rightbarFollowingImg"
-            />
-            <span className="rightbarFollowingName">Veronica Floresn</span>
-          </div>
-          <div className="rightbarFollowing">
-            <img
-              src={personImages.person2}
-              alt=""
-              className="rightbarFollowingImg"
-            />
-            <span className="rightbarFollowingName">Scott Torres</span>
-          </div>
-          <div className="rightbarFollowing">
-            <img
-              src={personImages.person3}
-              alt=""
-              className="rightbarFollowingImg"
-            />
-            <span className="rightbarFollowingName">Melissa Prater</span>
-          </div>
-          <div className="rightbarFollowing">
-            <img
-              src={personImages.person4}
-              alt=""
-              className="rightbarFollowingImg"
-            />
-            <span className="rightbarFollowingName">Katherine Johnson</span>
-          </div>
-          <div className="rightbarFollowing">
-            <img
-              src={personImages.person5}
-              alt=""
-              className="rightbarFollowingImg"
-            />
-            <span className="rightbarFollowingName">Jessica Howard</span>
-          </div>
-          <div className="rightbarFollowing">
-            <img
-              src={personImages.person6}
-              alt=""
-              className="rightbarFollowingImg"
-            />
-            <span className="rightbarFollowingName">Shirley Beauchamp</span>
-          </div>
+          {friends.map((friend) => (
+            <Link
+              to={`/profile/${friend.username}`}
+              style={{ textDecoration: "none" }}
+              key={friend._id}
+            >
+              <div className="rightbarFollowing">
+                <img
+                  src={
+                    friend.profilePicture
+                      ? personImages[friend.profilePicture]
+                      : personImages.noAvatar
+                  }
+                  alt=""
+                  className="rightbarFollowingImg"
+                />
+                <span className="rightbarFollowingName">{friend.username}</span>
+              </div>
+            </Link>
+          ))}
         </div>
       </>
     );
   };
+
   return (
     <div className="rightbar">
       <div className="rightbarWrapper">
