@@ -25,7 +25,7 @@ const Profile = () => {
     };
 
     fetchUser();
-  }, []);
+  }, [username]);
 
   return (
     <>
@@ -42,7 +42,11 @@ const Profile = () => {
               />
               <img
                 className="profileUserImg"
-                src={user.profilePicture || personImages.noAvatar}
+                src={
+                  user.profilePicture
+                    ? personImages[user.profilePicture]
+                    : personImages.noAvatar
+                }
                 alt=""
               />
             </div>
