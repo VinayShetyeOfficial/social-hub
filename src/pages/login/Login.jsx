@@ -9,10 +9,11 @@ const Login = () => {
   const emailRef = useRef();
   const passwordRef = useRef();
   const { isFetching, dispatch } = useContext(AuthContext);
-  const navigate = useNavigate(); // Use navigate for consistent navigation
+  const navigate = useNavigate();
 
   const handleSubmit = (e) => {
     e.preventDefault();
+
     loginCall(
       { email: emailRef.current.value, password: passwordRef.current.value },
       dispatch
@@ -28,23 +29,26 @@ const Login = () => {
             Connect with friends and the world around you on Social Hub.
           </span>
         </div>
+
         <div className="loginRight">
           <form className="loginBox" onSubmit={handleSubmit}>
             <input
-              type="email"
               placeholder="Email"
+              type="email"
               className="loginInput"
               ref={emailRef}
               required
             />
+
             <input
-              type="password"
               placeholder="Password"
+              type="password"
               className="loginInput"
               ref={passwordRef}
               minLength="6"
               required
             />
+
             <button
               className={`loginButton ${isFetching ? "disabledButton" : ""}`}
               type="submit"
@@ -56,13 +60,15 @@ const Login = () => {
                 "Log In"
               )}
             </button>
+
             <span className="loginForgot">Forgot Password?</span>
+
             <button
               className={`loginRegisterButton ${
                 isFetching ? "disabledButton" : ""
               }`}
               type="button"
-              onClick={() => navigate("/register")} // Navigate using useNavigate
+              onClick={() => navigate("/register")}
               disabled={isFetching}
             >
               {isFetching ? (
